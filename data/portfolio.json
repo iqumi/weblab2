@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Лендинг кофейни",
+    "description": "Одностраничный сайт с адаптивной версткой на Flexbox.",
+    "image": "images/project1.svg",
+    "tags": ["HTML", "CSS", "Flexbox"]
+  },
+  {
+    "id": 2,
+    "title": "Погодное приложение",
+    "description": "Простое SPA на JS с запросом к публичному API погоды.",
+    "image": "images/project2.svg",
+    "tags": ["JavaScript", "API"]
+  },
+  {
+    "id": 3,
+    "title": "Лабораторная по сетям",
+    "description": "Немного не по теме, но горжусь — разобрался с подсетями 😎",
+    "image": "images/project3.svg",
+    "tags": ["Networking"]
+  },
+  {
+    "id": 4,
+    "title": "To-Do список",
+    "description": "Список задач с сохранением в localStorage.",
+    "image": "images/project4.svg",
+    "tags": ["JavaScript", "LocalStorage"]
+  },
+  {
+    "id": 5,
+    "title": "Галерея изображений",
+    "description": "Адаптивная сетка изображений на CSS Grid.",
+    "image": "images/project5.svg",
+    "tags": ["CSS", "Grid"]
+  },
+  {
+    "id": 6,
+    "title": "Калькулятор",
+    "description": "Простой калькулятор на чистом JavaScript.",
+    "image": "images/project6.svg",
+    "tags": ["JavaScript"]
+  }
+]
