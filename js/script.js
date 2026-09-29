@@ -1,28 +1,50 @@
 $(function () {
 
   /* ==========================================================
+     0) Соглашения по разметке
+        - JS цепляется за id, data-атрибуты и классы с префиксом js-,
+          а не за классы оформления (БЭМ) — стили можно менять свободно;
+        - состояния показываются БЭМ-модификаторами (nav--open,
+          modal--open, form__field--invalid ...), стили — в scss/.
+        - Брейкпоинты ниже должны совпадать с $breakpoints
+          в scss/utils/_variables.scss (tablet: 768px, desktop: 1024px).
+     ========================================================== */
+  const mqTablet = window.matchMedia('(min-width: 768px)');
+  const mqDesktop = window.matchMedia('(min-width: 1024px)');
+
+  /* ==========================================================
      1) Выпадающее меню (мобильное)
      ========================================================== */
-  $('#navToggle').on('click', function () {
-    $('#nav').slideToggle(200).toggleClass('nav--open');
+  const $nav = $('#nav');
+  const $navToggle = $('#navToggle');
+
+  function closeMobileNav() {
+    $nav.slideUp(200).removeClass('nav--open');
+    $navToggle.removeClass('nav-toggle--open');
+  }
+
+  $navToggle.on('click', function () {
+    $nav.slideToggle(200).toggleClass('nav--open');
     $(this).toggleClass('nav-toggle--open');
   });
 
   // закрываем меню после клика по пункту (на мобильных)
-  $('.nav__link').on('click', function () {
-    if ($(window).width() <= 767) {
-      $('#nav').slideUp(200).removeClass('nav--open');
-    }
+  $('.js-nav-link').on('click', function () {
+    if (!mqTablet.matches) closeMobileNav();
   });
 
   /* ==========================================================
      2) Модальное окно
      ========================================================== */
+  // display управляется классом modal--open (flex-центрирование в CSS),
+  // jQuery отвечает только за плавность через opacity.
   function openModal() {
-    $('#modalOverlay').fadeIn(200).addClass('open');
+    $('#modalOverlay').addClass('modal--open').hide().fadeIn(200);
   }
   function closeModal() {
-    $('#modalOverlay').fadeOut(200).removeClass('open');
+    $('#modalOverlay').fadeOut(200, function () {
+      $(this).removeClass('modal--open').css('display', '');
+    });
   }
 
   $('#openModalBtn').on('click', openModal);
@@ -53,10 +75,10 @@ $(function () {
 
         const $card = $(
           '<article class="card">' +
-            '<img src="' + item.image + '" alt="' + item.title + '" loading="lazy">' +
+            '<img class="card__image" src="' + item.image + '" alt="' + item.title + '" loading="lazy">' +
             '<div class="card__body">' +
-              '<h3>' + item.title + '</h3>' +
-              '<p>' + item.description + '</p>' +
+              '<h3 class="card__title">' + item.title + '</h3>' +
+              '<p class="card__text">' + item.description + '</p>' +
               '<div class="card__tags">' + tags + '</div>' +
             '</div>' +
           '</article>'
@@ -79,13 +101,15 @@ $(function () {
   }
 
   function showFieldError($field, $error, message) {
-    $field.closest('.form__field').addClass('invalid');
+    $field.closest('.js-form-field').addClass('form__field--invalid');
     $error.text(message);
   }
   function clearFieldError($field, $error) {
-    $field.closest('.form__field').removeClass('invalid');
+    $field.closest('.js-form-field').removeClass('form__field--invalid');
     $error.text('');
   }
+
+  const STATUS_CLASSES = 'form__status--success form__status--error';
 
   function simulateAjaxSubmit(data) {
     // имитация запроса на сервер через $.ajax
@@ -133,7 +157,7 @@ $(function () {
     const $btn = $(this).find('button[type="submit"]');
 
     $btn.prop('disabled', true).text('Отправка...');
-    $status.removeClass('success error').text('');
+    $status.removeClass(STATUS_CLASSES).text('');
 
     simulateAjaxSubmit({
       name: $name.val().trim(),
@@ -141,11 +165,11 @@ $(function () {
       message: $message.val().trim()
     })
       .done(function () {
-        $status.addClass('success').text('Сообщение отправлено! Спасибо ✅');
+        $status.addClass('form__status--success').text('Сообщение отправлено! Спасибо ✅');
         $('#contactForm')[0].reset();
       })
       .fail(function () {
-        $status.addClass('error').text('Не удалось отправить, попробуйте позже ❌');
+        $status.addClass('form__status--error').text('Не удалось отправить, попробуйте позже ❌');
       })
       .always(function () {
         $btn.prop('disabled', false).text('Отправить');
@@ -167,16 +191,16 @@ $(function () {
 
     const $btn = $(this).find('button[type="submit"]');
     $btn.prop('disabled', true).text('Отправка...');
-    $status.removeClass('success error').text('');
+    $status.removeClass(STATUS_CLASSES).text('');
 
     simulateAjaxSubmit({ email: $email.val().trim() })
       .done(function () {
-        $status.addClass('success').text('Заявка принята! Скоро свяжусь ✅');
+        $status.addClass('form__status--success').text('Заявка принята! Скоро свяжусь ✅');
         $('#modalForm')[0].reset();
         setTimeout(closeModal, 1200);
       })
       .fail(function () {
-        $status.addClass('error').text('Ошибка отправки, попробуйте снова ❌');
+        $status.addClass('form__status--error').text('Ошибка отправки, попробуйте снова ❌');
       })
       .always(function () {
         $btn.prop('disabled', false).text('Отправить заявку');
@@ -187,14 +211,13 @@ $(function () {
      5) Карусель навыков (кнопки + автопрокрутка)
      ========================================================== */
   const $track = $('#skillsTrack');
-  const $slides = $track.children('.skill-card');
+  const $slides = $track.children('.js-carousel-slide');
   const $dotsWrap = $('#skillsDots');
 
   function slidesPerView() {
-    const w = $(window).width();
-    if (w <= 767) return 1;
-    if (w <= 1023) return 2;
-    return 3;
+    if (mqDesktop.matches) return 3;
+    if (mqTablet.matches) return 2;
+    return 1;
   }
 
   let current = 0;
@@ -205,8 +228,8 @@ $(function () {
   function buildDots() {
     $dotsWrap.empty();
     for (let i = 0; i <= maxIndex; i++) {
-      $('<span class="carousel__dot"></span>')
-        .toggleClass('active', i === current)
+      $('<span class="carousel__dot js-carousel-dot"></span>')
+        .toggleClass('carousel__dot--active', i === current)
         .attr('data-index', i)
         .appendTo($dotsWrap);
     }
@@ -215,8 +238,8 @@ $(function () {
   function updateCarousel() {
     const slideWidth = 100 / perView;
     $track.css('transform', 'translateX(-' + (current * slideWidth) + '%)');
-    $dotsWrap.children('.carousel__dot').each(function (i) {
-      $(this).toggleClass('active', i === current);
+    $dotsWrap.children('.js-carousel-dot').each(function (i) {
+      $(this).toggleClass('carousel__dot--active', i === current);
     });
   }
 
@@ -241,7 +264,7 @@ $(function () {
   $('#skillsNext').on('click', function () { nextSlide(); startAutoplay(); });
   $('#skillsPrev').on('click', function () { prevSlide(); startAutoplay(); });
 
-  $dotsWrap.on('click', '.carousel__dot', function () {
+  $dotsWrap.on('click', '.js-carousel-dot', function () {
     goTo(parseInt($(this).attr('data-index'), 10));
     startAutoplay();
   });
@@ -253,6 +276,12 @@ $(function () {
   startAutoplay();
 
   $(window).on('resize', function () {
+    // на широком экране меню всегда видно: сбрасываем inline-стили slideToggle
+    if (mqTablet.matches) {
+      $nav.removeAttr('style').removeClass('nav--open');
+      $navToggle.removeClass('nav-toggle--open');
+    }
+
     perView = slidesPerView();
     maxIndex = Math.max(0, $slides.length - perView);
     if (current > maxIndex) current = maxIndex;
@@ -264,7 +293,7 @@ $(function () {
      6) Подсветка активного пункта меню при скролле
      ========================================================== */
   const $sections = $('section[id]');
-  const $navLinks = $('.nav__link');
+  const $navLinks = $('.js-nav-link');
 
   function highlightNav() {
     const scrollPos = $(window).scrollTop() + 90;
@@ -278,9 +307,9 @@ $(function () {
       }
     });
 
-    $navLinks.removeClass('active');
+    $navLinks.removeClass('nav__link--active');
     if (currentId) {
-      $navLinks.filter('[href="#' + currentId + '"]').addClass('active');
+      $navLinks.filter('[href="#' + currentId + '"]').addClass('nav__link--active');
     }
   }
 
@@ -292,9 +321,9 @@ $(function () {
   $(window).on('scroll', function () {
     highlightNav();
     if ($(window).scrollTop() > 400) {
-      $backToTop.addClass('show');
+      $backToTop.addClass('back-to-top--visible');
     } else {
-      $backToTop.removeClass('show');
+      $backToTop.removeClass('back-to-top--visible');
     }
   });
 
@@ -312,4 +341,41 @@ $(function () {
   });
 
   highlightNav();
+
+  /* ==========================================================
+     8) Светлая / тёмная тема
+        Палитры описаны Sass-картами (scss/utils/_variables.scss),
+        из них сгенерированы CSS-переменные для :root и
+        [data-theme='dark']. Здесь мы только переключаем атрибут
+        data-theme на <html> и запоминаем выбор в localStorage.
+        Начальная тема ставится в js/theme-init.js (в <head>).
+     ========================================================== */
+  const THEME_KEY = 'theme'; // должен совпадать с ключом в js/theme-init.js
+  const $html = $(document.documentElement);
+  const $themeToggle = $('.js-theme-toggle');
+  const $themeIcon = $('.js-theme-icon');
+
+  function applyTheme(theme) {
+    $html.attr('data-theme', theme);
+    $themeToggle.attr('aria-pressed', theme === 'dark' ? 'true' : 'false');
+    // иконка показывает, на какую тему переключимся по клику
+    $themeIcon.text(theme === 'dark' ? '☀️' : '🌙');
+  }
+
+  function saveTheme(theme) {
+    try {
+      localStorage.setItem(THEME_KEY, theme);
+    } catch (e) {
+      // localStorage недоступен — тема просто не запомнится
+    }
+  }
+
+  $themeToggle.on('click', function () {
+    const next = $html.attr('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    saveTheme(next);
+  });
+
+  // синхронизируем кнопку с темой, выставленной в theme-init.js
+  applyTheme($html.attr('data-theme') === 'dark' ? 'dark' : 'light');
 });

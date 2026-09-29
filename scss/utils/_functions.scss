@@ -1,0 +1,41 @@
+// ==========================================================================
+// Функции. Возвращают значения, сами CSS не генерируют.
+// ==========================================================================
+@use 'sass:map';
+@use 'sass:math';
+@use 'variables' as *;
+
+/// rem($px) — перевод пикселей в rem относительно $base-font-size.
+///   rem(24px) → 1.5rem
+@function rem($px, $base: $base-font-size) {
+  @if $px == 0 {
+    @return 0;
+  }
+  @if math.unit($px) != 'px' {
+    @error 'rem(): ожидается значение в px, получено `#{$px}`.';
+  }
+  @return math.div($px, $base) * 1rem;
+}
+
+/// Достаёт значение из карты или падает с понятной ошибкой.
+@function -get($map, $key, $name) {
+  @if not map.has-key($map, $key) {
+    @error 'Неизвестный ключ `#{$key}` в #{$name}. Доступные: #{map.keys($map)}.';
+  }
+  @return map.get($map, $key);
+}
+
+/// space($key) — отступ из шкалы $spacing в rem.   space(4) → 1rem
+@function space($key) {
+  @return rem(-get($spacing, $key, '$spacing'));
+}
+
+/// fs($key) — размер шрифта из шкалы $font-sizes.   fs(lg) → 1.05rem
+@function fs($key) {
+  @return -get($font-sizes, $key, '$font-sizes');
+}
+
+/// z($layer) — z-index по имени слоя.   z(modal) → 200
+@function z($layer) {
+  @return -get($z-layers, $layer, '$z-layers');
+}

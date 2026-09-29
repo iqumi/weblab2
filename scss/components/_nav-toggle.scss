@@ -1,0 +1,42 @@
+@use '../utils' as *;
+
+// Бургер: виден только на мобильных, при --open превращается в крестик.
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; // у <button> по умолчанию flex-start — полоски были бы нулевой ширины
+  justify-content: space-between;
+  width: 26px;
+  height: 18px;
+  padding: 0;
+  background: none;
+  border: none;
+
+  @include respond-to(tablet) {
+    display: none;
+  }
+
+  @include focus-ring($offset: 4px);
+
+  &__line {
+    display: block;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition:
+      transform $transition-fast,
+      opacity $transition-fast;
+  }
+
+  &--open &__line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  &--open &__line:nth-child(2) {
+    opacity: 0;
+  }
+
+  &--open &__line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}

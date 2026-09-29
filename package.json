@@ -1,0 +1,21 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Сайт-визитка (лабораторные работы №1–3): вёрстка, jQuery, Sass",
+  "scripts": {
+    "sass:dev": "sass --watch scss/main.scss:dist/css/main.css",
+    "build": "sass --no-source-map --style=compressed scss/main.scss:dist/css/main.css",
+    "serve": "npx serve ."
+  },
+  "keywords": [
+    "sass",
+    "scss",
+    "bem",
+    "jquery"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.105.0"
+  }
+}

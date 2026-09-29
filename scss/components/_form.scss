@@ -1,0 +1,74 @@
+@use '../utils' as *;
+
+.form {
+  padding: space(4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: $radius;
+
+  @include respond-to(mobile) {
+    padding: space(6);
+  }
+
+  &__field {
+    margin-bottom: space(4);
+  }
+
+  &__label {
+    display: block;
+    margin-bottom: space(2);
+    font-size: fs(md);
+    font-weight: 600;
+  }
+
+  &__control {
+    width: 100%;
+    padding: rem(10px) space(3);
+    font-family: inherit;
+    font-size: fs(md);
+    color: var(--color-text);
+    resize: vertical;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: $radius-sm;
+
+    &::placeholder {
+      color: var(--color-text-muted);
+      opacity: 0.8;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 1px var(--color-accent);
+    }
+  }
+
+  // состояние ошибки: модификатор вешает jQuery-валидация
+  &__field--invalid &__control {
+    border-color: var(--color-error);
+    box-shadow: none;
+  }
+
+  &__error {
+    display: block;
+    min-height: 1em;
+    margin-top: space(1);
+    font-size: fs(sm);
+    color: var(--color-error);
+  }
+
+  &__status {
+    margin: space(3) 0 0;
+    font-size: fs(md);
+    font-weight: 600;
+
+    &--success {
+      color: var(--color-success);
+    }
+
+    &--error {
+      color: var(--color-error);
+    }
+  }
+}

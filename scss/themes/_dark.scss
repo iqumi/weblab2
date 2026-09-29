@@ -1,0 +1,8 @@
+@use '../utils' as *;
+
+// Тёмная тема — включается атрибутом data-theme="dark" на <html>.
+// Подключается после светлой: селекторы равны по специфичности, побеждает поздний.
+[data-theme='dark'] {
+  color-scheme: dark;
+  @include theme-vars($theme-dark);
+}

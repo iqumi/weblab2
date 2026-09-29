@@ -1,0 +1,7 @@
+@use '../utils' as *;
+
+// Светлая тема — по умолчанию, для :root
+:root {
+  color-scheme: light;
+  @include theme-vars($theme-light);
+}

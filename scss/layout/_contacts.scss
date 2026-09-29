@@ -1,0 +1,29 @@
+@use '../utils' as *;
+
+.contacts {
+  &__wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: space(10);
+
+    @include respond-to(desktop) {
+      grid-template-columns: 1fr 1.4fr;
+    }
+  }
+
+  &__row {
+    margin: 0 0 space(4);
+    font-size: fs(lg);
+  }
+
+  &__link {
+    font-weight: 600;
+    color: var(--color-accent);
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    @include focus-ring;
+  }
+}

@@ -1,0 +1,55 @@
+@use '../utils' as *;
+
+// Карточка проекта. Генерируется jQuery из data/portfolio.json,
+// изначально скрыта и показывается через fadeIn.
+.card {
+  display: none;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: $radius;
+  transition:
+    box-shadow $transition-fast,
+    transform $transition-fast;
+
+  &:hover {
+    box-shadow: 0 12px 24px var(--color-shadow);
+    transform: translateY(-3px);
+  }
+
+  &__image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    background: var(--color-bg-alt);
+  }
+
+  &__body {
+    padding: space(4) space(5);
+  }
+
+  &__title {
+    margin: 0 0 space(2);
+    font-size: fs(lg);
+  }
+
+  &__text {
+    margin: 0 0 space(3);
+    font-size: fs(md);
+    color: var(--color-text-muted);
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: space(2);
+  }
+
+  &__tag {
+    padding: space(1) space(2);
+    font-size: fs(xs);
+    color: var(--color-accent-strong);
+    background: var(--color-bg-alt);
+    border-radius: $radius-pill;
+  }
+}

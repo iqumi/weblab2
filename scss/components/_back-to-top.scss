@@ -1,0 +1,38 @@
+@use '../utils' as *;
+
+.back-to-top {
+  @include circle(46px);
+  position: fixed;
+  right: space(4);
+  bottom: space(4);
+  z-index: z(back-to-top);
+  display: none;
+  font-size: fs(xl);
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border: none;
+  box-shadow: 0 8px 18px var(--color-shadow-accent);
+  transition:
+    background-color $transition-fast,
+    transform $transition-fast;
+
+  @include respond-to(tablet) {
+    right: space(6);
+    bottom: space(6);
+  }
+
+  &:hover {
+    background: var(--color-accent-strong);
+  }
+
+  &:active {
+    transform: scale(0.94);
+  }
+
+  @include focus-ring($offset: 3px);
+
+  // показывается jQuery после прокрутки на 400px
+  &--visible {
+    @include flex-center;
+  }
+}

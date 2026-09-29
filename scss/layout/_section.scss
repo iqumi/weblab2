@@ -1,0 +1,24 @@
+@use '../utils' as *;
+
+.section {
+  padding: $section-padding-y 0;
+
+  @include respond-to(tablet) {
+    padding: $section-padding-y-lg 0;
+  }
+
+  &--alt {
+    background: var(--color-bg-alt);
+  }
+
+  &__title {
+    margin: 0 0 space(6);
+    font-size: fs(2xl);
+    text-align: center;
+
+    @include respond-to(tablet) {
+      margin-bottom: space(9);
+      font-size: fs(3xl);
+    }
+  }
+}

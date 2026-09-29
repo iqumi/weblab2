@@ -1,0 +1,78 @@
+@use '../utils' as *;
+
+// Кнопка: блок + модификаторы (--primary, --light, --outline)
+// и все состояния: :hover, :focus-visible, :active, :disabled.
+// Цвета — только из CSS-переменных, поэтому работает в обеих темах.
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: space(3) space(7);
+  font-family: inherit;
+  font-size: fs(base);
+  font-weight: 600;
+  line-height: $line-height-base;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid var(--color-border-strong);
+  border-radius: $radius-pill;
+  transition:
+    transform $transition-fast,
+    background-color $transition-fast,
+    color $transition-fast,
+    border-color $transition-fast,
+    opacity $transition-fast;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0) scale(0.97);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  @include focus-ring($offset: 3px);
+
+  // Основная: заливка акцентным цветом (формы)
+  &--primary {
+    color: var(--color-on-accent);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+
+    &:hover:not(:disabled) {
+      background: var(--color-accent-strong);
+      border-color: var(--color-accent-strong);
+    }
+  }
+
+  // Светлая заливка для тёмного фона (hero)
+  &--light {
+    color: var(--color-hero-button-text);
+    background: var(--color-hero-button-bg);
+    border-color: var(--color-hero-button-bg);
+
+    &:focus-visible {
+      outline-color: var(--color-hero-text);
+    }
+  }
+
+  // Прозрачная с обводкой для тёмного фона (hero)
+  &--outline {
+    color: var(--color-hero-text);
+    background: transparent;
+    border-color: var(--color-hero-text);
+
+    &:hover:not(:disabled) {
+      background: var(--color-hero-button-hover);
+    }
+
+    &:focus-visible {
+      outline-color: var(--color-hero-text);
+    }
+  }
+}

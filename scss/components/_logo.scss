@@ -1,0 +1,9 @@
+@use '../utils' as *;
+
+.logo {
+  font-size: fs(xl);
+  font-weight: 700;
+  color: var(--color-accent);
+
+  @include focus-ring;
+}
