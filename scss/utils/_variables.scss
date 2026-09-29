@@ -1,0 +1,134 @@
+// ==========================================================================
+// Переменные и карты. Здесь только данные — CSS этот файл не генерирует.
+// Sass-переменные существуют только при компиляции, поэтому цвета тем
+// описаны картами, а в CSS попадают как custom properties (см. themes/).
+// ==========================================================================
+@use 'sass:color';
+
+// --- Типографика -----------------------------------------------------------
+$font-family-base: 'Segoe UI', Roboto, Arial, sans-serif;
+$base-font-size: 16px; // нужен функции rem()
+$line-height-base: 1.6;
+
+// Шкала размеров шрифта (в rem)
+$font-sizes: (
+  xs: 0.75rem,
+  sm: 0.8rem,
+  md: 0.9rem,
+  base: 1rem,
+  lg: 1.05rem,
+  title: 1.17rem,
+  xl: 1.25rem,
+  2xl: 1.5rem,
+  3xl: 1.9rem,
+  display-sm: 1.8rem,
+  display: 2.4rem,
+);
+
+// --- Брейкпоинты (mobile-first, используются как min-width) ----------------
+$breakpoints: (
+  mobile: 480px,
+  tablet: 768px,
+  desktop: 1024px,
+);
+
+// --- Отступы: шкала с шагом 4px --------------------------------------------
+$spacing: (
+  1: 4px,
+  2: 8px,
+  3: 12px,
+  4: 16px,
+  5: 20px,
+  6: 24px,
+  7: 28px,
+  8: 32px,
+  9: 36px,
+  10: 40px,
+  12: 48px,
+);
+
+// --- Размеры, радиусы, анимация, слои --------------------------------------
+$container-width: 1140px;
+$header-height: 64px;
+
+$section-padding-y: 48px; // мобильные
+$section-padding-y-lg: 70px; // tablet и выше
+$hero-padding-y: 70px;
+$hero-padding-y-lg: 90px; // desktop
+
+$radius: 12px;
+$radius-sm: 8px;
+$radius-pill: 999px;
+$radius-round: 50%;
+
+$transition-fast: 0.2s;
+$transition-base: 0.4s;
+
+$z-layers: (
+  header: 100,
+  back-to-top: 150,
+  modal: 200,
+);
+
+// --- Палитры тем -----------------------------------------------------------
+// У обеих карт ОДИНАКОВЫЕ ключи: из них в themes/ через @each генерируются
+// CSS-переменные вида --color-<ключ>. Компоненты берут цвета только из них.
+$ink: #1f2430;
+
+$theme-light: (
+  bg: #ffffff,
+  bg-alt: #f5f6fb,
+  surface: #ffffff,
+  text: $ink,
+  text-muted: #5b6272,
+  border: #e7e8ee,
+  border-strong: #d9dae4,
+  accent: #4f46e5,
+  accent-strong: #3730a3,
+  on-accent: #ffffff,
+  error: #dc2626,
+  success: #16a34a,
+  header-bg: color.change(#ffffff, $alpha: 0.93),
+  hero-from: #4f46e5,
+  hero-to: #3730a3,
+  hero-text: #ffffff,
+  hero-text-muted: #e5e4ff,
+  hero-button-bg: #ffffff,
+  hero-button-text: #3730a3,
+  hero-button-hover: color.change(#ffffff, $alpha: 0.13),
+  overlay: color.change($ink, $alpha: 0.55),
+  shadow: color.change($ink, $alpha: 0.08),
+  shadow-accent: color.change(#4f46e5, $alpha: 0.35),
+  footer-bg: $ink,
+  footer-text: #c9cbd6,
+  footer-text-hover: #ffffff,
+);
+
+$theme-dark: (
+  bg: #12141c,
+  bg-alt: #171a24,
+  surface: #1e2230,
+  text: #e8eaf2,
+  text-muted: #a3a9bb,
+  border: #2b3042,
+  border-strong: #3c4258,
+  accent: #818cf8,
+  accent-strong: #a5b4fc,
+  on-accent: #12141c,
+  error: #f87171,
+  success: #4ade80,
+  header-bg: color.change(#12141c, $alpha: 0.9),
+  hero-from: #312e81,
+  hero-to: #1e1b4b,
+  hero-text: #ffffff,
+  hero-text-muted: #d6d8f5,
+  hero-button-bg: #f1f2fb,
+  hero-button-text: #1e1b4b,
+  hero-button-hover: color.change(#ffffff, $alpha: 0.13),
+  overlay: color.change(#000000, $alpha: 0.65),
+  shadow: color.change(#000000, $alpha: 0.4),
+  shadow-accent: color.change(#818cf8, $alpha: 0.35),
+  footer-bg: #0b0d13,
+  footer-text: #a3a9bb,
+  footer-text-hover: #ffffff,
+);

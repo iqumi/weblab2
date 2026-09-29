@@ -1,0 +1,6 @@
+// Точка входа. Порядок @use = порядок в итоговом CSS.
+// utils/ подключается внутри каждого partial (там нет CSS, только данные).
+@use 'base';
+@use 'themes';
+@use 'layout';
+@use 'components';

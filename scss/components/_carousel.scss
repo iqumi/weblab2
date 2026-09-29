@@ -1,0 +1,80 @@
+@use '../utils' as *;
+
+// Карусель навыков: 1 слайд на экране, с tablet — 2, с desktop — 3.
+// Количество слайдов в JS должно совпадать с этими брейкпоинтами.
+.carousel {
+  &__body {
+    display: flex;
+    align-items: center;
+    gap: space(4);
+  }
+
+  &__viewport {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  &__track {
+    display: flex;
+    transition: transform $transition-base ease;
+  }
+
+  &__slide {
+    flex: 0 0 100%;
+    padding: 0 space(3);
+
+    @include respond-to(tablet) {
+      flex-basis: 50%;
+    }
+
+    @include respond-to(desktop) {
+      flex-basis: 33.333%;
+    }
+  }
+
+  &__btn {
+    @include circle(34px);
+    @include flex-center;
+    font-size: fs(base);
+    color: var(--color-accent);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    transition:
+      background-color $transition-fast,
+      transform $transition-fast;
+
+    &:hover {
+      background: var(--color-bg-alt);
+    }
+
+    &:active {
+      transform: scale(0.92);
+    }
+
+    @include focus-ring;
+
+    @include respond-to(tablet) {
+      @include circle(40px);
+    }
+  }
+
+  &__dots {
+    display: flex;
+    justify-content: center;
+    gap: space(2);
+    margin-top: space(4);
+  }
+
+  &__dot {
+    width: 9px;
+    height: 9px;
+    cursor: pointer;
+    background: var(--color-border-strong);
+    border-radius: $radius-round;
+    transition: background-color $transition-fast;
+
+    &--active {
+      background: var(--color-accent);
+    }
+  }
+}

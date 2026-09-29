@@ -1,0 +1,8 @@
+@use '../utils' as *;
+
+body {
+  font-family: $font-family-base;
+  line-height: $line-height-base;
+  color: var(--color-text);
+  background: var(--color-bg);
+}

@@ -4,22 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Сергей — Портфолио</title>
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="dist/css/main.css">
+<!-- ставит data-theme на <html> до отрисовки (нет «вспышки» темы) -->
+<script src="js/theme-init.js"></script>
 </head>
 <body>
 
 <header class="header" id="top">
   <div class="container header__inner">
     <a href="#top" class="logo">&nbsp;0_0&nbsp;</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Открыть меню">
-      <span></span><span></span><span></span>
-    </button>
     <nav class="nav" id="nav">
-      <a href="#about" class="nav__link">О себе</a>
-      <a href="#skills" class="nav__link">Навыки</a>
-      <a href="#portfolio" class="nav__link">Работы</a>
-      <a href="#contacts" class="nav__link">Контакты</a>
+      <a href="#about" class="nav__link js-nav-link">О себе</a>
+      <a href="#skills" class="nav__link js-nav-link">Навыки</a>
+      <a href="#portfolio" class="nav__link js-nav-link">Работы</a>
+      <a href="#contacts" class="nav__link js-nav-link">Контакты</a>
     </nav>
+    <div class="header__actions">
+      <button class="theme-toggle js-theme-toggle" type="button" aria-label="Тёмная тема" aria-pressed="false" title="Переключить тему">
+        <span class="js-theme-icon" aria-hidden="true">🌙</span>
+      </button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Открыть меню">
+        <span class="nav-toggle__line"></span>
+        <span class="nav-toggle__line"></span>
+        <span class="nav-toggle__line"></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -27,16 +36,16 @@
 
   <section class="hero">
     <div class="container hero__inner">
-      <h1>Привет, я Сергей</h1>
-      <p>Начинающий разработчик.</p>
+      <h1 class="hero__title">Привет, я Сергей</h1>
+      <p class="hero__text">Начинающий разработчик.</p>
       <div class="hero__buttons">
-        <a href="#portfolio" class="btn">Смотреть работы</a>
-        <button class="btn btn--outline" id="openModalBtn">Оставить заявку</button>
+        <a href="#portfolio" class="button button--light">Смотреть работы</a>
+        <button class="button button--outline" id="openModalBtn" type="button">Оставить заявку</button>
       </div>
     </div>
   </section>
 
-  <section class="section" id="about">
+  <section class="section about" id="about">
     <div class="container">
       <h2 class="section__title">О себе</h2>
       <div class="about__grid">
@@ -44,104 +53,118 @@
           Студент технического вуза.
         </p>
         <ul class="about__list">
-          <li>🎓 Учусь на 3 курсе, группа ФИТ-241</li>
-          <li>💻 Пишу на всем подряд</li>
+          <li class="about__item">🎓 Учусь на 3 курсе, группа ФИТ-241</li>
+          <li class="about__item">💻 Пишу на всем подряд</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section class="section section--alt" id="skills">
+  <section class="section section--alt skills" id="skills">
     <div class="container">
       <h2 class="section__title">Навыки</h2>
 
-      <div class="carousel" id="skillsCarousel">
-        <button class="carousel__btn carousel__btn--prev" id="skillsPrev" aria-label="Предыдущий">&#10094;</button>
+      <div class="carousel">
+        <div class="carousel__body" id="skillsCarousel">
+          <button class="carousel__btn carousel__btn--prev" id="skillsPrev" type="button" aria-label="Предыдущий">&#10094;</button>
 
-        <div class="carousel__viewport">
-          <div class="carousel__track" id="skillsTrack">
+          <div class="carousel__viewport">
+            <div class="carousel__track" id="skillsTrack">
 
-            <div class="skill-card">
-              <div class="skill-card__top"><span>HTML5</span><span>90%</span></div>
-              <div class="skill-bar"><div class="skill-bar__fill" style="width:90%"></div></div>
+            <div class="carousel__slide js-carousel-slide">
+              <div class="skill-card">
+                <div class="skill-card__top"><span>HTML5</span><span>90%</span></div>
+                <div class="skill-card__bar"><div class="skill-card__fill" style="width:90%"></div></div>
+              </div>
             </div>
 
-            <div class="skill-card">
-              <div class="skill-card__top"><span>CSS3 / Flexbox / Grid</span><span>85%</span></div>
-              <div class="skill-bar"><div class="skill-bar__fill" style="width:85%"></div></div>
+            <div class="carousel__slide js-carousel-slide">
+              <div class="skill-card">
+                <div class="skill-card__top"><span>CSS3 / Flexbox / Grid</span><span>85%</span></div>
+                <div class="skill-card__bar"><div class="skill-card__fill" style="width:85%"></div></div>
+              </div>
             </div>
 
-            <div class="skill-card">
-              <div class="skill-card__top"><span>JavaScript</span><span>55%</span></div>
-              <div class="skill-bar"><div class="skill-bar__fill" style="width:55%"></div></div>
+            <div class="carousel__slide js-carousel-slide">
+              <div class="skill-card">
+                <div class="skill-card__top"><span>JavaScript</span><span>55%</span></div>
+                <div class="skill-card__bar"><div class="skill-card__fill" style="width:55%"></div></div>
+              </div>
             </div>
 
-            <div class="skill-card">
-              <div class="skill-card__top"><span>jQuery</span><span>65%</span></div>
-              <div class="skill-bar"><div class="skill-bar__fill" style="width:65%"></div></div>
+            <div class="carousel__slide js-carousel-slide">
+              <div class="skill-card">
+                <div class="skill-card__top"><span>jQuery</span><span>65%</span></div>
+                <div class="skill-card__bar"><div class="skill-card__fill" style="width:65%"></div></div>
+              </div>
             </div>
 
-            <div class="skill-card">
-              <div class="skill-card__top"><span>Git / GitHub</span><span>70%</span></div>
-              <div class="skill-bar"><div class="skill-bar__fill" style="width:70%"></div></div>
+            <div class="carousel__slide js-carousel-slide">
+              <div class="skill-card">
+                <div class="skill-card__top"><span>Git / GitHub</span><span>70%</span></div>
+                <div class="skill-card__bar"><div class="skill-card__fill" style="width:70%"></div></div>
+              </div>
             </div>
 
-            <div class="skill-card">
-              <div class="skill-card__top"><span>Figma</span><span>60%</span></div>
-              <div class="skill-bar"><div class="skill-bar__fill" style="width:60%"></div></div>
+            <div class="carousel__slide js-carousel-slide">
+              <div class="skill-card">
+                <div class="skill-card__top"><span>Figma</span><span>60%</span></div>
+                <div class="skill-card__bar"><div class="skill-card__fill" style="width:60%"></div></div>
+              </div>
             </div>
 
+            </div>
           </div>
+
+          <button class="carousel__btn carousel__btn--next" id="skillsNext" type="button" aria-label="Следующий">&#10095;</button>
         </div>
 
-        <button class="carousel__btn carousel__btn--next" id="skillsNext" aria-label="Следующий">&#10095;</button>
+        <div class="carousel__dots" id="skillsDots"></div>
       </div>
-
-      <div class="carousel__dots" id="skillsDots"></div>
     </div>
   </section>
 
-  <section class="section" id="portfolio">
+  <section class="section portfolio" id="portfolio">
     <div class="container">
       <h2 class="section__title">Портфолио</h2>
       <div class="portfolio__grid" id="portfolioGrid">
         <!-- карточки генерируются jQuery из data/portfolio.json -->
-        <p class="loading" id="portfolioLoading">Загрузка работ…</p>
+        <p class="portfolio__loading" id="portfolioLoading">Загрузка работ…</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--alt" id="contacts">
+  <section class="section section--alt contacts" id="contacts">
     <div class="container">
       <h2 class="section__title">Контакты</h2>
 
       <div class="contacts__wrap">
         <div class="contacts__info">
-          <p>📧 <a href="mailto:examplev@example.com">example@example.com</a></p>
-          <p>📱 <a href="tel:+79990000000">+7 (999) 000-00-00</a></p>
-          <p>🔗 <a href="https://github.com/example" target="_blank" rel="noopener">GitHub</a></p>
+          <p class="contacts__row">📧 <a class="contacts__link" href="mailto:examplev@example.com">example@example.com</a></p>
+          <p class="contacts__row">📱 <a class="contacts__link" href="tel:+79990000000">+7 (999) 000-00-00</a></p>
+          <p class="contacts__row">🔗 <a class="contacts__link" href="https://github.com/example" target="_blank" rel="noopener">GitHub</a></p>
         </div>
 
         <form class="form" id="contactForm" novalidate>
-          <div class="form__field">
-            <label for="name">Имя</label>
-            <input type="text" id="name" name="name" placeholder="Как вас зовут?">
+          <div class="form__field js-form-field">
+            <label class="form__label" for="name">Имя</label>
+            <input class="form__control" type="text" id="name" name="name" placeholder="Как вас зовут?">
             <span class="form__error" id="nameError"></span>
           </div>
 
-          <div class="form__field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com">
+          <div class="form__field js-form-field">
+            <label class="form__label" for="email">Email</label>
+            <input class="form__control" type="email" id="email" name="email" placeholder="you@example.com">
             <span class="form__error" id="emailError"></span>
           </div>
 
-          <div class="form__field">
-            <label for="message">Сообщение</label>
-            <textarea id="message" name="message" rows="4" placeholder="О чём хотите написать?"></textarea>
+          <div class="form__field js-form-field">
+            <label class="form__label" for="message">Сообщение</label>
+            <textarea class="form__control" id="message" name="message" rows="4" placeholder="О чём хотите написать?"></textarea>
             <span class="form__error" id="messageError"></span>
           </div>
 
-          <button type="submit" class="btn">Отправить</button>
+          <button type="submit" class="button button--primary">Отправить</button>
           <p class="form__status" id="formStatus"></p>
         </form>
       </div>
@@ -154,35 +177,35 @@
   <div class="container footer__inner">
     <p>&copy; 0_0</p>
     <div class="footer__links">
-      <a href="#about">О себе</a>
-      <a href="#skills">Навыки</a>
-      <a href="#portfolio">Работы</a>
-      <a href="#contacts">Контакты</a>
+      <a class="footer__link" href="#about">О себе</a>
+      <a class="footer__link" href="#skills">Навыки</a>
+      <a class="footer__link" href="#portfolio">Работы</a>
+      <a class="footer__link" href="#contacts">Контакты</a>
     </div>
   </div>
 </footer>
 
 <!-- Модальное окно -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <button class="modal__close" id="modalClose" aria-label="Закрыть">&times;</button>
-    <h3>Оставить заявку</h3>
+<div class="modal" id="modalOverlay">
+  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal__close" id="modalClose" type="button" aria-label="Закрыть">&times;</button>
+    <h3 class="modal__title" id="modalTitle">Оставить заявку</h3>
     <p class="modal__text">Оставьте контакт — свяжусь в течение дня.</p>
 
     <form class="form" id="modalForm" novalidate>
-      <div class="form__field">
-        <label for="modalEmail">Email</label>
-        <input type="email" id="modalEmail" name="modalEmail" placeholder="you@example.com">
+      <div class="form__field js-form-field">
+        <label class="form__label" for="modalEmail">Email</label>
+        <input class="form__control" type="email" id="modalEmail" name="modalEmail" placeholder="you@example.com">
         <span class="form__error" id="modalEmailError"></span>
       </div>
-      <button type="submit" class="btn">Отправить заявку</button>
+      <button type="submit" class="button button--primary">Отправить заявку</button>
       <p class="form__status" id="modalStatus"></p>
     </form>
   </div>
 </div>
 
 <!-- Кнопка "Вверх" -->
-<button id="backToTop" class="back-to-top" aria-label="Наверх">&#8593;</button>
+<button id="backToTop" class="back-to-top" type="button" aria-label="Наверх">&#8593;</button>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="js/script.js"></script>

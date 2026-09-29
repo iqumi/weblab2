@@ -1,0 +1,26 @@
+@use '../utils' as *;
+
+// Кнопка переключения светлой/тёмной темы в шапке.
+// Иконку и aria-pressed выставляет jQuery.
+.theme-toggle {
+  @include circle(40px);
+  @include flex-center;
+  font-size: fs(base);
+  line-height: 1;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  transition:
+    background-color $transition-fast,
+    transform $transition-fast;
+
+  &:hover {
+    background: var(--color-bg-alt);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+
+  @include focus-ring;
+}

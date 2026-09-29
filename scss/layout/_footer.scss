@@ -1,0 +1,36 @@
+@use '../utils' as *;
+
+.footer {
+  padding: space(6) 0;
+  color: var(--color-footer-text);
+  background: var(--color-footer-bg);
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: space(3);
+    text-align: center;
+
+    @include respond-to(tablet) {
+      flex-flow: row wrap;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: space(5);
+  }
+
+  &__link {
+    transition: color $transition-fast;
+
+    &:hover {
+      color: var(--color-footer-text-hover);
+    }
+
+    @include focus-ring(var(--color-footer-text-hover));
+  }
+}

@@ -1,0 +1,24 @@
+@use '../utils' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: z(header);
+  background: var(--color-header-bg);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--color-border);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: $header-height;
+  }
+
+  // переключатель темы и бургер
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: space(3);
+  }
+}

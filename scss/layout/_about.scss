@@ -1,0 +1,27 @@
+@use '../utils' as *;
+
+.about {
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: space(6);
+    align-items: start;
+
+    @include respond-to(tablet) {
+      gap: space(10);
+    }
+
+    @include respond-to(desktop) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__item {
+    padding: space(2) 0;
+    border-bottom: 1px dashed var(--color-border-strong);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

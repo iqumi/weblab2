@@ -1,0 +1,50 @@
+// ==========================================================================
+// Миксины. Сами CSS не генерируют.
+// ==========================================================================
+@use 'sass:map';
+@use 'variables' as *;
+
+/// respond-to($breakpoint) — mobile-first медиа-запрос (min-width) по имени
+/// брейкпоинта из карты $breakpoints. Стили передаются через @content.
+///   @include respond-to(tablet) { ... }
+@mixin respond-to($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @error 'Неизвестный брейкпоинт `#{$breakpoint}`. Доступные: #{map.keys($breakpoints)}.';
+  }
+}
+
+/// theme-vars($palette) — превращает карту палитры в CSS-переменные.
+///   ключ `text` → --color-text: <значение>;
+@mixin theme-vars($palette, $prefix: 'color') {
+  @each $name, $value in $palette {
+    --#{$prefix}-#{$name}: #{$value};
+  }
+}
+
+/// flex-center — центрирование содержимого по обеим осям через flex.
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/// circle($size) — круглый элемент заданного размера.
+@mixin circle($size) {
+  flex: none;
+  width: $size;
+  height: $size;
+  padding: 0;
+  border-radius: 50%;
+}
+
+/// focus-ring — контур для клавиатурного фокуса (:focus-visible).
+@mixin focus-ring($color: var(--color-accent), $offset: 2px) {
+  &:focus-visible {
+    outline: 2px solid $color;
+    outline-offset: $offset;
+  }
+}
